@@ -53,12 +53,12 @@ void LoadAccounts()
 
 void CreateAccount()
 {
-    if (user_nums == 100)
+    if (user_nums < MAX_USERS)
     {
         return 0;
     }
     srand(time(NULL));
-    FILE *accounts_txt = fopen("Accounts_Info.txt", "a+");
+    FILE *accounts_txt = fopen("Accounts_Info.txt", "r+");
 
     if (accounts_txt == NULL)
     {
