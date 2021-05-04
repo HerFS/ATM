@@ -22,13 +22,6 @@ void Deposit();
 
 AccountsSave_t accounts[MAX_USERS];
 
-int main()
-{
-    Deposit();
-
-    return 0;
-}
-
 void Deposit()
 {
     FILE* accounts_txt = fopen("Accounts_Info.txt", "a+");
