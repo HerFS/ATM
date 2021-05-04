@@ -1,9 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define MAX_NAME_LEN 22
-#define MIN_NAME_LEN 4
-#define MAX_NUM_LEN 15
-#define MAX_PASSWORD_LEN 6
-#define MAX_USERS 100
+#define MAX_NAME_LEN (22)
+#define MIN_NAME_LEN (4)
+#define MAX_NUM_LEN (15)
+#define MAX_PASSWORD_LEN (6)
+#define MAX_USERS (100)
+#define MAX_ACCOUNTS_INFO (1024)
 
 #include <stdlib.h>
 #include <string.h>
@@ -19,15 +20,23 @@ typedef struct Bank
 }Account_t;
 
 void CreateAccount();
+void LoadAccounts();
 
 Account_t accounts[MAX_USERS];
+int users_index = 0;
 
-void CreateAccount()
+int main()
 {
-    srand(time(NULL));
-    int users_index = 0;
-    char users_count[15];
+    LoadAccounts();
+    CreateAccount();
+    return 0;
+}
+
+void LoadAccounts()
+{
     FILE* accounts_txt = fopen("Accounts_Info.txt", "a+");
+
+    char users_info[MAX_ACCOUNTS_INFO];
 
     if (accounts_txt == NULL)
     {
@@ -35,18 +44,20 @@ void CreateAccount()
         exit(1);
     }
 
-    fseek(accounts_txt, 0, SEEK_SET);
-    fgets(users_count, 15, accounts_txt);
-    sscanf(users_count, "유저수:%d", &users_index);
-
-    if (users_index == 0)
+    while (!feof(accounts_txt))
     {
-        fprintf(accounts_txt, "유저수:%d\n", users_index);
+        fgets(users_info, MAX_ACCOUNTS_INFO, accounts_txt);
+        sscanf(users_info, "이름:%s 계좌번호:%s 잔액:%d 비밀번호:%s", accounts[users_index].name, accounts[users_index].num, &accounts[users_index].money, accounts[users_index].password);
+        users_index++;
     }
 
     fclose(accounts_txt);
+}
 
-    accounts_txt = fopen("Accounts_Info.txt", "a+");
+void CreateAccount()
+{
+    srand(time(NULL));
+    FILE *accounts_txt = fopen("Accounts_Info.txt", "r+");
 
     if (accounts_txt == NULL)
     {
@@ -71,13 +82,13 @@ void CreateAccount()
     {
         fgets(input_name, MAX_NAME_LEN, stdin);
         rewind(stdin);
-        input_name[MAX_NAME_LEN - 1] = '\0';
         sscanf(input_name, "%s", accounts[users_index].name);
-        if (MIN_NAME_LEN < strlen(accounts[users_index].name) + 1 && strlen(accounts[users_index].name) + 1 < MAX_NAME_LEN)
+        int users_name_len = strlen(accounts[users_index].name) + 1;
+        if (MIN_NAME_LEN < users_name_len && users_name_len < MAX_NAME_LEN)
         {
             break;
         }
-        else if (strlen(accounts[users_index].name) + 1 < MIN_NAME_LEN)
+        else if (users_name_len < MIN_NAME_LEN)
         {
             printf("최소 한글 2글자, 영문 4글자 이상이어야 합니다.\n 다시 입력해주세요.\n>>");
         }
@@ -94,7 +105,6 @@ void CreateAccount()
     {
         fgets(input_password, MAX_PASSWORD_LEN, stdin);
         rewind(stdin);
-        input_password[MAX_PASSWORD_LEN - 1] = '\0';
         sscanf(input_password, "%s", accounts[users_index].password);
         if (strlen(accounts[users_index].password) + 2 == MAX_PASSWORD_LEN)
         {
@@ -108,13 +118,5 @@ void CreateAccount()
     fprintf(accounts_txt, "이름:%s 계좌번호:%s 잔액:%d 비밀번호:%s\n", accounts[users_index].name, accounts[users_index].num, accounts[users_index].money, accounts[users_index].password);
     printf("계좌생성이 완료되었습니다.\n");
     printf("이름:%s 계좌번호:%s 잔액:%d 비밀번호:%s\n", accounts[users_index].name, accounts[users_index].num, accounts[users_index].money, accounts[users_index].password);
-    fclose(accounts_txt);
-
-    accounts_txt = fopen("Accounts_Info.txt", "r+");
-
-    users_index++;
-    fseek(accounts_txt, 0, SEEK_SET);
-    fprintf(accounts_txt, "유저수:%d\n", users_index);
-
     fclose(accounts_txt);
 }
