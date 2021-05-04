@@ -22,12 +22,6 @@ void CreateAccount();
 
 Account_t accounts[MAX_USERS];
 
-int main()
-{
-    CreateAccount();
-    return 0;
-}
-
 void CreateAccount()
 {
     srand(time(NULL));
