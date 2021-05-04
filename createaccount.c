@@ -57,7 +57,7 @@ void LoadAccounts()
 void CreateAccount()
 {
     srand(time(NULL));
-    FILE *accounts_txt = fopen("Accounts_Info.txt", "r+");
+    FILE *accounts_txt = fopen("Accounts_Info.txt", "a+");
 
     if (accounts_txt == NULL)
     {
