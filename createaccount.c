@@ -10,7 +10,7 @@ void CreateAccount()
     }
 
     srand(time(NULL));
-    FILE *accounts_txt = fopen("Accounts_Info.txt", "a");
+    FILE* accounts_txt = fopen("Accounts_Info.txt", "a");
 
     if (accounts_txt == NULL)
     {
@@ -37,8 +37,8 @@ void CreateAccount()
         fgets(input_name, MAX_NAME_LEN, stdin);
         rewind(stdin);
         sscanf(input_name, "%s", accounts[user_nums].name);
-        int name_len = strlen(accounts[user_nums].name) + 2;
-        if (name_len > MIN_NAME_LEN  && name_len < MAX_NAME_LEN)
+        int name_len = strlen(input_name) + 2;
+        if (name_len > MIN_NAME_LEN && name_len < MAX_NAME_LEN)
         {
             break;
         }
