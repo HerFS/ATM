@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <Windows.h>
 #include <stdbool.h>
 #include <stdlib.h>
