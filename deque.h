@@ -1,20 +1,20 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef DEQUE_H
+#define DEQUE_H
 
 #define TRUE (1)
 #define FALSE (0)
 
-#define QUEUE_SIZE (4)
+#define DEQUE_SIZE (5)
 
-void init_queue(void);
-int is_empty_queue(void);
-int is_full_queue(void);
-int enqueue(int data);
-int dequeue(void);
+void init_deque(void);
+int is_empty_deque(void);
+int is_full_deque(void);
+void add_rear(int data);
+void add_front(int data);
+int delete_rear();
+int delete_front();
+int get_rear();
+int get_front();
 int peek(void);
-
-void queue_test(void);
-void test_linear_queue(void);
-void test_circle_queue(void);
 
 #endif // QUEUE_H
