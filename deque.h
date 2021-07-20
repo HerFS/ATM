@@ -11,10 +11,10 @@ int is_empty_deque(void);
 int is_full_deque(void);
 void add_rear(int data);
 void add_front(int data);
-int delete_rear();
-int delete_front();
-int get_rear();
-int get_front();
+int delete_rear(void);
+int delete_front(void);
+int get_rear(void);
+int get_front(void);
 int peek(void);
 
 #endif // QUEUE_H
